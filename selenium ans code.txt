@@ -1,0 +1,430 @@
+Assert and verify 
+package pack1;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class AssertAndVerify {
+	
+	// assert class can be found in testng and there is no verify in testng
+	@Test
+public void testMethod() {
+	WebDriver driver = new FirefoxDriver();
+	driver.get("https://en.wikipedia.org/wiki/Rothschild_family");
+	
+	String heading= driver.findElement(By.id("firstHeading")).getText();
+	// assert will stop the execution if it fails.
+	Assert.assertEquals(heading, "Rothschild family");
+	driver.close();
+	}
+	
+	
+}
+
+
+
+
+Broken links :
+package pack1;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class BrokenLinks {
+public static void main(String[] args) throws IOException {
+	int workingLinks =0;
+	int nonWorkingLinks =0;
+	WebDriver driver = new FirefoxDriver();
+	driver.get("http://facebook.com");
+	//storing all the existing links using tagname "a"
+	List<WebElement> listOfLinks = driver.findElements(By.tagName("a"));
+	
+	for(WebElement e : listOfLinks)
+	{
+		//getting the URl and saving in URL class
+		URL u = new URL(e.getAttribute("href"));
+		//opening each connection
+	HttpURLConnection urlconnection = (HttpURLConnection)u.openConnection();
+	urlconnection.connect();
+	// 200 is the Http response when links work fine 
+	if(urlconnection.getResponseCode()==200)
+	{
+		workingLinks++; //increasing the count when link works
+	}
+	else
+	{
+		nonWorkingLinks++; //increasing the count when link fails
+	}
+	urlconnection.disconnect();
+	}
+	
+	System.out.println("Total Number of Links: "+listOfLinks.size());
+	System.out.println("No of working links: "+workingLinks);
+	System.out.println("No of non working Links: "+nonWorkingLinks);
+	driver.close();
+	
+	
+	
+	
+}
+}
+
+Changing Language:
+package pack1;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+
+public class ChangingLanguage {
+//******this doesn't work for internet explorer 
+public static void main(String[] args) {
+	//for Firefox
+	
+	FirefoxProfile fireFoxProfile = new FirefoxProfile();
+	// setting language to telugu using firefoz profile
+	fireFoxProfile.setPreference("intl.accept_languages", "te");
+	WebDriver driver = new FirefoxDriver(fireFoxProfile);
+	driver.get("https://www.facebook.com/");
+	
+}
+}
+Checked BOX and Checked
+package pack1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class CheckboxChecked {
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https://www.gmail.com");
+		driver.findElement(By.id("Email")).sendKeys("lavanya41c@gmail.com");
+		driver.findElement(By.id("next")).click();
+		// steps to find checkbox checked
+		boolean ischecked;
+		ischecked = driver.findElement(By.id("PersistentCookie")).isSelected();
+		System.out.println(" CheckBox checked? : "+ischecked);
+		driver.close();
+	}
+
+}
+
+
+DOWNLOAD SELENIUM
+package pack1;
+
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class DownloadInselenium {
+	public static void main(String[] args) throws IOException {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https://notepad-plus-plus.org/download/v7.2.2.html");
+		driver.findElement(By.xpath(".//*[@id='main']/div/ul[1]/li[1]/strong/a/img")).click();
+		//using autoit download autoit file from https://drive.google.com/file/d/0B6vnknygMB3IeVYzSjdyY0I5VmM/view
+		Runtime.getRuntime().exec("C:\\selenium\\Script To Download File.exe");
+
+		//driver.close();
+		
+		/*FirefoxProfile firefoxprofile = new FirefoxProfile();
+		firefoxprofile.setPreference("browser.helperApps.neverAsk.openFile", "application/octet-stream");
+		WebDriver driver = new FirefoxDriver(firefoxprofile);
+		driver.get("https://notepad-plus-plus.org/download/v7.2.2.html");
+		driver.findElement(By.xpath(".//*[@id='main']/div/ul[1]/li[1]/strong/a/img")).click();*/
+		
+	}
+
+}
+
+
+package pack1;
+ 
+import java.util.concurrent.TimeUnit;
+ 
+import org.openqa.selenium.By;
+ 
+import org.openqa.selenium.WebDriver;
+ 
+import org.openqa.selenium.WebElement;
+ 
+import org.openqa.selenium.firefox.FirefoxDriver;
+ 
+import org.openqa.selenium.interactions.Action;
+ 
+import org.openqa.selenium.interactions.Actions;
+ 
+public class DragAndDrop {
+ 
+	public static void main(String[] args) throws InterruptedException {
+ 
+		  WebDriver driver = new FirefoxDriver();
+ 
+		 driver.get("http://only-testing-blog.blogspot.in/2014/09/drag-and-drop.html");
+		 Actions action = new Actions(driver);
+		 action.dragAndDrop(driver.findElement(By.id("dragdiv")), driver.findElement(By.id("dropdiv")));
+		 action.perform();
+ 
+	}
+ 
+}
+
+
+Driver Close quit
+package pack1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class DriverCloseQuit {
+public static void usingClose() {
+	WebDriver driver = new FirefoxDriver();
+	driver.get("http://automationpractice.com/index.php");
+	driver.findElement(By.xpath(".//*[@id='social_block']/ul/li[2]/a")).click();
+	//doesn't close child pages
+	driver.close();
+ }
+public static void usingQuit(){
+	WebDriver driver = new FirefoxDriver();
+	driver.get("http://automationpractice.com/index.php");
+	driver.findElement(By.xpath(".//*[@id='social_block']/ul/li[2]/a")).click();
+	// closes all the pages
+	driver.quit();
+}
+
+public static void main(String[] args) {
+	usingClose();
+	usingQuit();
+}
+}
+
+
+Exceptions in selenium
+
+package pack1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class ExceptionInSelenium {
+
+	public static void main(String[] args) {
+		/*They are many execptions in selenium and can be caught using try catch block
+		 * all the exceptions can be caught using catch(exeception e) below is an example of NoSuchElementException 
+		 * */
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://automationpractice.com/index.php");
+		try{ // actual id = search_query_top
+			driver.findElement(By.id("query_top")).sendKeys("this will not work");
+		}
+		catch(NoSuchElementException e)
+		{
+		System.out.println( "execption found and caught. This way it will not stop the execution of the program");	
+		}
+		driver.close();
+	}
+	
+}
+
+Implicit Wait
+
+package pack1;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Implicitwait {
+	public static void main(String[] args) {
+		
+		WebDriver driver = new FirefoxDriver();
+		//implicit wait. the Document object module will wait for certain amount of time when trying to find an element
+		//this implict will be set for the life of the webdriver.
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	
+		driver.get("https://www.irctc.co.in");
+		
+		
+		
+	}
+
+}
+
+
+Screenshot 
+
+package pack1;
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.TakesScreenshot;
+
+public class Screenshort {
+
+
+	
+	public static void main(String[] args)
+	{
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://automationpractice.com/index.php");
+		//taking screen shot using TakesScreenshot interface 
+		//import org.openqa.selenium.TakesScreenshot;
+		File screenshot= ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		// saving the screenshot 
+		File path = new File("C:\\selenium\\screenshot.jpg");
+		try{
+			FileUtils.copyFile(screenshot, path);
+		}
+		catch(Exception e)
+		{
+			System.out.println("File did not save: "+e.getMessage());
+			
+		}
+		driver.close();
+		
+	}
+	
+}
+
+
+
+Explicit Wait
+
+package pack1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class explicitwait {
+public static void main(String[] args) {
+		
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://automationpractice.com/index.php");
+		driver.findElement(By.id("search_query_top")).sendKeys("dress");
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("search_query_top")));
+	    //waits 10 seconds until the icon is visible
+	    driver.findElement(By.id("search_query_top")).click();
+	    driver.close();
+		
+}
+}
+
+
+
+Xpaths.
+package pack1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Xpaths {
+	public static void main(String[] args) {
+		
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://automationpractice.com/index.php?controller=authentication&back=order-slip");
+		//absolute xpath. creates problem when physical location of the element changes
+		driver.findElement(By.xpath(".//*[@id='header']/div[3]/div/div/div[3]/div/a/b")).click();
+		//// navigating back
+		driver.navigate().back();
+		//using relative path. short and accurate even if the physical place changes 
+		driver.findElement(By.xpath("//a[contains(@title,'View my shopping cart')]")).click();	
+		driver.close();
+	}
+
+}
+
+
+
+
+Verify login
+package pack1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class verifyLogin {
+public static void main(String[] args) {
+	WebDriver driver = new FirefoxDriver();
+	driver.get("https://www.facebook.com/");
+	driver.findElement(By.id("email")).sendKeys("Lavanya.xyz.com");
+	driver.findElement(By.id("pass")).sendKeys("Password");
+	driver.findElement(By.id("u_0_n")).click();
+	
+}
+}
+
+
+Using Locators
+
+package pack1;
+
+
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+
+public class UsingLocators {
+
+public static void main(String[] args) {
+	WebDriver driver = new FirefoxDriver();
+	driver.get("http://automationpractice.com/index.php");	
+	//byId
+	driver.findElement(By.id("search_query_top")).sendKeys("dress");
+	//byName
+	driver.findElement(By.name("search_query")).sendKeys("dress");
+	// by css selectors
+		 driver.findElement(By.cssSelector(".search_query.form-control.ac_input")).sendKeys("dress");
+	// by class name  
+	driver.findElement(By.className("sf-with-ul")).click();
+	//by tag name  finding number of div inside class "columns-container"
+	WebElement divisions = driver.findElement(By.className("columns-container"));
+	List divlist = divisions.findElements(By.tagName("div"));
+	 System.out.println("number of divisions inside class: columns-container are "+divlist.size());
+	 //by link text
+	 driver.findElement(By.linkText("Our stores")).click();
+	 
+	 //by partial link text
+	 driver.findElement(By.partialLinkText("slip")).click();
+	 //by xpath
+	 driver.findElement(By.xpath(".//*[@id='email_create']")).sendKeys("lavanya@xyz.com");
+	
+	
+	
+	
+}
+
+}

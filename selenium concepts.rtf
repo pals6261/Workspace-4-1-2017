@@ -1,0 +1,323 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Times New Roman;}{\f1\fnil\fcharset0 Calibri;}{\f2\fnil\fcharset0 Cambria Math;}{\f3\fnil\fcharset2 Symbol;}}
+{\*\generator Riched20 10.0.14393}{\*\mmathPr\mmathFont2\mwrapIndent1440 }\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs22\lang9 1.what are limitations in selenium webdriver\b0\f1\par
+1. \i The program becomes quite large\par
+\i0 Even if you need to scrape a small portion of data, your program needs to be linked with all Selenium WebDriver libraries (there are about 4-5 Mb of them in total), and also the driver executable needs to be installed for each browser you want to use during scraping (that may be about another 6 Mb, at least in the case of Chrome Driver). Therefore your program may grow from 10 Kb to 10 Mb!\par
+2. \i A browser application needs to be started\i0\par
+When you use WebDriver to scrape web pages you load a whole web browser into the system memory. This not only takes time and consumes system resources, but also may cause your security subsystem to react (and even disallow your program to run).\par
+\i 3. The scraping process is slower\par
+\i0 Since a browser waits until the whole web page is loaded, and only then allows you to access its elements, the scraping process may take longer in comparison with making simple HTTP requests to the web server.\par
+\i 4. The browser generates a bigger network traffic\i0\par
+Web browsers load a lot of supplementary files that may be of  no value for you (like css, js and image files). This may generate much, much more traffic than when you only request the resources that you really need (using separate HTTP requests).\par
+\i 5. The scraping can be detected by such simple means as Google Analytics\par
+\i0 If you scrape too many pages using WebDriver, you can be easily detected by any JavaScript-based traffic-tracking tools (like Google Analytics). The web site owner does not even need to install any sophisticated scrape bot detection mechanism!\par
+\par
+\par
+\b\f0\fs28 2.installing/configure selenium\b0\f1\fs22\par
+To configure Eclipse with Selenium WebDriver, we need to perform the following activities:\par
+Launch the Eclipse IDE & Create a Workspace\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 Create a new Project\par
+{\pntext\f3\'B7\tab}Create a new Package\par
+{\pntext\f3\'B7\tab}Create a new Class\par
+{\pntext\f3\'B7\tab}Add External libraries to the project\par
+
+\pard\sa200\sl276\slmult1\par
+4.\b which is fastest way to identify elements in web page?\par
+\b0  The most accurate way is XPath as you can use XPath's to describe the exact position of an element within the DOM, however there are some instances where CSS locators work better than XPaths.\par
+\b\f0\fs28\par
+5.what is absolute path and relative path in xpath\b0\f1\fs22\par
+Absolute Xpath : \par
+1) start selection from the document node\par
+2) Starts with //\par
+3) e.g. \ldblquote /html/body/p\rdblquote  matches all the paragraph elements\par
+Google Search Box : /html/body/div[1]/div[2]/div[1]/div[1]/div[3]/div/div/div/form/fieldset[2]/div/div/div\par
+\i\par
+Relative Xpath  : \i0\par
+1) start selection matching anywhere in the document\par
+2) Starts with /\par
+3) e.g. \ldblquote //p\rdblquote  matches all the paragraph elements starts with p\par
+\par
+Google Search Box : //*[@id='gbqfqwb']\par
+\par
+\par
+7.\b how to save screen shots using selenium webdriver\par
+\b0 In selenium webdriver, we can take the screen shot using the below command.\par
+File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);\par
+The below example explains how to take the screen shot when the test fails.\par
+import java.io.File;\par
+import org.apache.commons.io.FileUtils;\par
+import org.openqa.selenium.By;\par
+import org.openqa.selenium.OutputType;\par
+import org.openqa.selenium.TakesScreenshot;\par
+     \par
+ public class takeScreenShotExample\{\par
+        public WebDriver driver;\par
+         \par
+      @Test\par
+      public void openBrowser() throws Exception \{\par
+    \tab   driver = new FirefoxDriver();\par
+    \tab   driver.manage().window().maximize();\par
+    \tab   driver.get("http://www.google.com");\par
+    \tab   try\{\par
+    \tab\tab   driver.findElement(By.id("testing")).sendKeys("test");\par
+                     \tab\tab   //driver.findElement(By.id("gbqfq")).sendKeys("test");\par
+    \tab   \}\par
+    \tab   catch (Exception e)\{\par
+    \tab\tab   System.out.println("I'm in exception");\par
+    \tab\tab   getscreenshot();\par
+     \tab   \}\par
+      \}\par
+      \par
+      public void getscreenshot() throws Exception \par
+      \{\par
+              File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE)\par
+              FileUtils.copyFile(scrFile, new File("D:\\\\screenshot.png"));\par
+      \}\par
+ \}\par
+\par
+\par
+\b 9.how to lanuch webpage using chrome drive\par
+\b0 Before launching IE or Chrome browser we need to set the System property.\par
+System.setProperty(\ldblquote webdriver.ie.driver\rdblquote ,\rdblquote path of the iedriver.exe file \rdblquote );\par
+ WebDriver driver = new InternetExplorerDriver();\par
+System.setProperty(\ldblquote webdriver.ie.driver\rdblquote ,\rdblquote path of the iedriver.exe file \rdblquote );\par
+ WebDriver driver = new InternetExplorerDriver();\par
+ WebDriver driver = new ChromeDriver(); \par
+ WebDriver driver = new ChromeDriver();\par
+\par
+\b\f0 How to handle Ajax calls in selenium?\par
+\b0\f1 We\f2  \f1 can\f2  \f1 able\f2  \f1 to\f2  \f1 handle\f2  \f1 Ajax\f2  \f1 calls\f2  \f1 in\f2  \f1 following\f2  \f1 ways\f2 :\par
+\b Thread.Sleep()\par
+\b0 Thread.Sleep () is not a wise choice as it suspends the current thread for the specified amount of time.\par
+In AJAX, you can never be sure about the exact wait time. So, your test will fail if the element won't show up within the wait time. Moreover, it increases the overhead because calling Thread.sleep(t) makes the current thread to be moved from the running queue to the waiting queue.\par
+After the time 't' reached, the current thread will move from the waiting queue to the ready queue, and then it takes some time to be picked by the CPU and be running.\par
+\b Implicit Wait()\b0\par
+This method tells webdriver to wait if the element is not available immediately, but this wait will be in place for the entire time the browser is open. So any search for the elements on the page could take the time the implicit wait is set for.\par
+\f1\lang1033 Code\f2 :\f1\par
+WebDriver\f2  \f1 driver\f2  = \f1 new\f2  \f1 FirefoxDriver\f2 ();\f1\par
+driver\f2 .\f1 get\f2 (\f1 "http\f2 ://\f1 somedomain\f2 /\f1 url\f2 _\f1 that\f2 _\f1 delays\f2 _\f1 loading"\f2 );\f1\par
+WebElement\f2  \f1 myDynamicElement\f2  = (\f1 new\f2  \f1 WebDriverWait\f2 (\f1 driver\f2 , \f1 10\f2 ))\f1\par
+\f2 .\f1 until\f2 (\f1 ExpectedConditions\f2 .\f1 presenceOfElementLocated\f2 (\f1 By\f2 .\f1 id\f2 (\f1 "myDynamicElement"\f2 )));\f1\par
+\f2  \par
+\b Explicit Wait()\b0\par
+Explicit wait is used to freeze the test execution till the time a particular condition is met or maximum time lapses.\par
+\f1\lang1033 WebDriver\f2  \f1 driver\f2  = \f1 new\f2  \f1 FirefoxDriver\f2 ();\f1\par
+driver\f2 .\f1 manage\f2 ().\f1 timeouts\f2 ().\f1 implicitlyWait\f2 (\f1 10\f2 , \f1 TimeUnit\f2 .\f1 SECONDS\f2 );\f1\par
+driver\f2 .\f1 get\f2 (\f1 "http\f2 ://\f1 somedomain\f2 /\f1 url\f2 _\f1 that\f2 _\f1 delays\f2 _\f1 loading"\f2 );\f1\par
+WebElement\f2  \f1 myDynamicElement\f2  = \f1 driver\f2 .\f1 findElement\f2 (\f1 By\f2 .\f1 id\f2 (\f1 "myDynamicElement"\f2 ));\f1\par
+\f2  \f1\par
+\b\f2 WebdriverWait\par
+\b0 It can be used for any conditions. This can be achieved with WebDriverWait in combination with ExpectedCondition\par
+The best way to wait for an element dynamically is checking for the condition every second and continuing to the next command in the script as soon as the condition is met.\par
+But the problem with all these waits is, you have to mention the time out unit. What if the element is still not present within the time? So there is one more wait called Fluent wait.\par
+\f1\lang1033 public\f2  \f1 void\f2  \f1 waitForAjax\f2 (\f1 int\f2  \f1 timeoutInSeconds\f2 ) \{\f1\par
+System\f2 .\f1 out\f2 .\f1 println\f2 (\f1 "Checking\f2  \f1 active\f2  \f1 ajax\f2  \f1 calls\f2  \f1 by\f2  \f1 calling\f2  \f1 jquery\f2 .\f1 active"\f2 );\f1\par
+try\f2  \{\f1\par
+if\f2  (\f1 driver\f2  \f1 instanceof\f2  \f1 JavascriptExecutor\f2 ) \{\f1\par
+JavascriptExecutor\f2  \f1 jsDriver\f2  = (\f1 JavascriptExecutor\f2 )\f1 driver\f2 ;\f1\par
+for\f2  (\f1 int\f2  \f1 i\f2  = \f1 0\f2 ; \f1 i\f2 < \f1 timeoutInSeconds\f2 ; \f1 i\f2 ++) \f1\par
+\f2\{\f1\par
+Object\f2  \f1 numberOfAjaxConnections\f2  = \f1 jsDriver\f2 .\f1 executeScript\f2 (\f1 "return\f2  \f1 jQuery\f2 .\f1 active"\f2 );\f1\par
+if\f2  (\f1 numberOfAjaxConnections\f2  \f1 instanceof\f2  \f1 Long\f2 ) \{\f1\par
+Long\f2  \f1 n\f2  = (\f1 Long\f2 )\f1 numberOfAjaxConnections\f2 ;\f1\par
+System\f2 .\f1 out\f2 .\f1 println\f2 (\f1 "Number\f2  \f1 of\f2  \f1 active\f2  \f1 jquery\f2  \f1 ajax\f2  \f1 calls\f2 : \f1 "\f2  + \f1 n\f2 );\f1\par
+if\f2  (\f1 n\f2 .\f1 longValue\f2 () == \f1 0L\f2 )\f1\par
+break\f2 ;\f1\par
+\f2\}\f1\par
+Thread\f2 .\f1 sleep\f2 (\f1 1000\f2 );\f1\par
+\f2\}\f1\par
+\f2\}\f1\par
+else\f2  \{\f1\par
+System\f2 .\f1 out\f2 .\f1 println\f2 (\f1 "Web\f2  \f1 driver\f2 : \f1 "\f2  + \f1 driver\f2  + \f1 "\f2  \f1 cannot\f2  \f1 execute\f2  \f1 javascript"\f2 );\f1\par
+\f2\}\f1\par
+\f2\}\f1\par
+catch\f2  (\f1 InterruptedException\f2  \f1 e\f2 ) \{\f1\par
+System\f2 .\f1 out\f2 .\f1 println\f2 (\f1 e\f2 );\f1\par
+\f2\}\f1\par
+\f2\}\f1\par
+\b\f2  Fluent Wait\par
+\b0 This is an implementation of the Wait interface having its timeout and polling interval. Each FluentWait instance determines the maximum amount of time to wait for a condition, as well as the frequency with which to check the condition.\f1\par
+\f2     \f1 FluentWait\f2 <\f1 By\f2 > \f1 fluentWait\f2  = \f1 new\f2  \f1 FluentWait\f2 <\f1 By\f2 >(\f1 By\f2 .\f1 tagName\f2 (\f1 "TEXTAREA"\f2 ));  \\\\ \f1 define\f2  \f1 element\f2  \f1 for\f2  \f1 which\f2  \f1 you\f2  \f1 want\f2  \f1 to\f2  \f1 poll\par
+fluentWait\f2 .\f1 pollingEvery\f2 (\f1 300\f2 , \f1 TimeUnit\f2 .\f1 MILLISECONDS\f2 ); \\\\ \f1 it\f2  \f1 will\f2  \f1 ping\f2  \f1 for\f2  \f1 every\f2  \f1 3\f2  \f1 sec\par
+fluentWait\f2 .\f1 withTimeout\f2 (\f1 1000\f2 , \f1 TimeUnit\f2 .\f1 MILLISECONDS\f2 );  \\\\ \f1 max\f2  \f1 time\f2  \f1 out\par
+fluentWait\f2 .\f1 until\f2 (\f1 new\f2  \f1 Predicate\f2 <\f1 By\f2 >() \{\f1\par
+public\f2  \f1 boolean\f2  \f1 apply\f2 (\f1 By\f2  \f1 by\f2 ) \{\f1\par
+try\f2  \{\f1\par
+return\f2  \f1 browser\f2 .\f1 findElement\f2 (\f1 by\f2 ).\f1 isDisplayed\f2 ();\f1\par
+\f2\} \f1 catch\f2  (\f1 NoSuchElementException\f2  \f1 ex\f2 ) \{\f1\par
+return\f2  \f1 false\f2 ;\f1\par
+\f2\}\f1\par
+\f2\}\f1\par
+\f2\});\f1\par
+browser\f2 .\f1 findElement\f2 (\f1 By\f2 .\f1 tagName\f2 (\f1 "TEXTAREA"\f2 )).\f1 sendKeys\f2 (\f1 "text\f2  \f1 to\f2  \f1 enter"\f2 );\par
+\par
+\par
+\b\f0\par
+\fs28 how to set language while opening website\b0\f2\par
+\f1\fs22 Internationalization\f2  \f1 is\f2  \f1 a\f2  \f1 process\f2  \f1 of\f2  \f1 designing\f2  \f1 a\f2  \f1 software\f2  \f1 application\f2  \f1 so\f2  \f1 that\f2  \f1 it\f2  \f1 can\f2  \f1 be\f2  \f1 adapted\f2  \f1 to\f2  \f1 various\f2  \f1 languages\f2  \f1 and\f2  \f1 regions\f2  \f1 without\f2  \f1 any\f2  \f1 changes\par
+\f2  FirefoxProfile profile = new FirefoxProfile();\par
+//setting the locale french : \lquote fr\rquote\par
+profile.setPreference(\ldblquote intl.accept_languages\rdblquote ,\rdblquote fr\rdblquote );\par
+driver = new FirefoxDriver(profile);\par
+driver.get(\ldblquote http://google.com&#8221;);\par
+\par
+\b\f0\fs28 write code to find out if all links are working or not\fs22\par
+\b0\f2 So for checking the broken links in a webpage. you have to do following operations-\par
+First extract all links on a webpage. We know that all links on webpage are of anchor ("a") tag and has urls in attribute - "href". it can be done as below\par
+List<WebElement> list=driver.findElement(By.tagName("a"));\par
+2. Now you have a list of all links, so you can navigate to each link and find out if page is loading properly or not. But this approach will take a lot of time, I will suggest below appraoch-\par
+Extract all urls from the list using (get href attribute) and save it in some excel or file\par
+Navigate to each url in a multi-threaded manner, so that you can check multiple urls at same time (this will fasten the process).\par
+Or you can just hit a Get request to each url in back ground and check if response code is correct.\par
+If you are using TestNG, then it is pretty simple to save all urls and then iterate using "@Dataprovider" annotation\par
+When we create scripts, our motive should not be to just complete the scenario rather it should be to complete it in efficient manner.\par
+\lang1033 The code works as follows:\par
+\par
+get the page (getPage() method)\par
+get all links from page (getLinksFromPage() method)\par
+for each link\par
+get the value of the HREF attribute of the link; this is an url\par
+if the url is valid (includes http)\par
+get the page response code\par
+assert that the page response code is < 400 (http error codes start at 400)\par
+\b\f0\par
+\par
+\fs28 different types of waits or synchronization in selenium webdriver\b0\f1\fs22\par
+There\f2  \f1 is\f2  \f1 2\f2  \f1 different\f2  \f1 way\f2  \f1 to\f2  \f1 handle\f2  \f1 this\f2  \f1 using\f2  \f1 waits\f2 :\f1\par
+1\f2 . \f1 Implicit\f2  \f1 Waits\par
+2\f2 . \f1 Explicit\f2  \f1 Waits\par
+\par
+1\f2 . \f1 Implicit\f2  \f1 Waits\par
+WebDriver\f2  \f1 waits\f2  \f1 for\f2  \f1 an\f2  \f1 element\f2  \f1 if\f2  \f1 they\f2  \f1 are\f2  \f1 not\f2  \f1 immediately\f2  \f1 available\f2 . \f1 So\f2 , \f1 WebDriver\f2  \f1 does\f2  \f1 not\f2  \f1 throw\f2  \f1 NoSuchElementException\f2  \f1 immediately\f2 . \f1 This\f2  \f1 is\f2  \f1 known\f2  \f1 as\f2  \f1 implicitlyWait\f2 (). \f1 This\f2  \f1 can\f2  \f1 be\f2  \f1 achieved\f2  \f1 using\f2 :\f1\par
+driver\f2 .\f1 manage\f2 ().\f1 timeouts\f2 ().\f1 implicitlyWait\f2 (\f1 15\f2 , \f1 TimeUnit\f2 .\f1 SECONDS\f2 );\f1\par
+driver\f2 .\f1 manage\f2 ().\f1 timeouts\f2 ().\f1 implicitlyWait\f2 (\f1 15\f2 , \f1 TimeUnit\f2 .\f1 SECONDS\f2 );\f1\par
+\f2  \f1 1\f2 . \f1 If\f2  \f1 the\f2  \f1 DOM\f2  \f1 is\f2  \f1 get\f2  \f1 loaded\f2  \f1 within\f2  \f1 the\f2  \f1 wait\f2  \f1 time\f2  \f1 it\f2  \f1 should\f2  \f1 not\f2  \f1 wait\f2  \f1 for\f2  \f1 the\f2  \f1 remaining\f2  \f1 time\f2  \f1 it\f2  \f1 go\f2  \f1 for\f2  \f1 the\f2  \f1 next\f2  \f1 step\f2 .\par
+2. Explicit Waits\par
+A. Thread.sleep()\par
+This is to wait the running program for sometime, this can be done using:\par
+Ex.- Thread.sleep(3600)\par
+\i B. Expected Condition\par
+Ex\i0 .- WebDriverWait wait = new WebDriverWait(driver, 15);\par
+ \i Fluent Wait Command\i0 :\par
+WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id()));\par
+Ex.- Wait wait = new FluentWait(driver)\par
+.withTimeout(30, SECONDS)\par
+.pollingEvery(5, SECONDS)\par
+.ignoring(NoSuchElementException.class);\par
+wait.until(ExpectedConditions.elementToBeClickable(By.id()));\par
+\b\f0\par
+\fs28 10.what is desired capabilities in selenium webdriver\fs22\par
+\b0\f2 The desired capability is a series of key/value pairs that stores the browser properties like browsername, browser version, the path of the browser driver in the system, etc. to determine the behaviour of the browser at run time.\par
+Desired capability can also be used to configure the driver instance of Selenium WebDriver.\par
+We can configure driver instance like FirefoxDriver, ChromeDriver, InternetExplorerDriver by using desired capabilities\par
+examples for set capability method.\par
+getBrowserName()\par
+public java.lang.String getBrowserName()\par
+setBrowserName()\par
+public void setBrowserName(java.lang.String browserName)\par
+getVersion()\par
+public java.lang.String getVersion()\par
+setVersion()\par
+public void setVersion(java.lang.String version)\par
+getPlatform()\par
+public Platform getPlatform()\par
+setPlatform()\par
+public Platform getPlatform()\par
+getCapability Method\par
+The getCapability method of the Desired Capabilities class can be used to get the capability that is in use currently in the system.\par
+\par
+public java.lang.Object getCapability(java.lang.String capabilityName)\par
+setCapabilityMethod\par
+The setCapability() method of the Desired Capabilities class can be used to set the device name, platform version, platform name, absolute path of the app under test (the .apk file of the app(Android) under test), app Activity (in Android) and appPackage(java).\par
+\par
+\b\f0\fs28 how to select items from dropdown/select box\par
+\i\f2\fs22 Selecting Dropdown in Selenium-WebDriver\i0\par
+\b0 public static void selectDropdown(WebDriver driver, By locator, String value)\{\par
+new Select (driver.findElement(locator)).selectByVisibleText(value); \}\par
+\b\i Selecting CheckBox in Selenium-WebDriver\b0\par
+\i0 public static void selectCheckboxes(WebDriver driver, By locator,String value)\par
+\{\par
+List abc = driver.findElements(locator);\par
+List list = new ArrayListArrays.asList(value.split(",")));\par
+for (String check : list)\{\par
+for (WebElement chk : abc)\{\par
+if(chk.getAttribute("value").equalsIgnoreCase(check))\{\par
+chk.click();\par
+\}\}\}\}\f1\par
+\par
+\b\f0\fs28 common exceptions in selenium\b0\f2 ?\f1\par
+\i\fs22 Exceptions\f2  \f1 in\f2  \f1 Selenium\f2  \f1 WebDriver\i0\par
+\b NoSuchElementException\par
+\b0 This\f2  \f1 exception\f2  \f1 occurs\f2  \f1 when\f2  \f1 WebDriver\f2  \f1 is\f2  \f1 unable\f2  \f1 to\f2  \f1 identify\f2  \f1 the\f2  \f1 elements\f2  \f1 during\f2  \f1 run\f2  \f1 time\f2 . \f1 Due\f2  \f1 to\f2  \f1 wrong\f2  \f1 selector\f2  \f1 or\f2  \f1 selector\f2 , \f1 which\f2  \f1 is\f2 , \f1 not\f2  \f1 exist\f2 .\f1\par
+Example\f2 :-\f1\par
+driver\f2 .\f1 findElement\f2 (\f1 By\f2 .\f1 id\f2 (\f1 "invalidid"\f2 )).\f1 sendKeys\f2 (\f1 "Mukesh"\f2 );\f1\par
+driver\f2 .\f1 findElement\f2 (\f1 By\f2 .\f1 id\f2 (\f1 "invalidid"\f2 )).\f1 sendKeys\f2 (\f1 "Mukesh"\f2 );\par
+\b\i ElementNotVisibleException\par
+\b0\i0 This Exception occurs when the element presence is in DOM, it is not visible.\par
+Example:-\par
+Hidden Elements, which has presence in DOM and it, is not visible. Visibility means the height and\par
+width should be greater than zero. Hidden Elements are defined in HTML using of type=\rdblquote hidden\rdblquote .\par
+driver.findElement(By.id("hiddenid")).sendKeys("Mukesh");\par
+1\par
+driver.findElement(By.id("hiddenid")).sendKeys("Mukesh");\par
+\b NoSuchFrameException\par
+\b0 This Exception occurs when the driver is switching to an invalid frame, which is not available.\par
+Example:-\par
+driver.switchTo().frame(invalidindex);\par
+(or)\par
+driver.switchTo().frame("frame_z");\par
+driver.switchTo().frame(invalidindex);\par
+(or)\par
+driver.switchTo().frame("frame_z");\f1\par
+\f2  \b NoAlertPresentException\par
+\b0 This Exception occurs when the driver is switching to an invalid Alert, which is not available.\par
+Example:-\par
+driver.switchTo().alert().accept();\par
+1\par
+driver.switchTo().alert().accept();\par
+\b NoSuchWindowException\par
+\b0 This Exception occurs when the driver is switching to an invalid Window, which is not available.\par
+Example:-\par
+driver.switchTo().window("invalidwindowname");\par
+driver.switchTo().window("invalidwindowname");\par
+\b WebDriverException\par
+\b0 This Exception occurs when the driver is performing the action after immediately closing the browser.\par
+Example:-\par
+driver.close();\par
+driver.findElement(By.id("username")).sendKeys("Mukesh");\par
+driver.close();\par
+driver.findElement(By.id("username")).sendKeys("Mukesh");\par
+ \b SessionNotFoundException\par
+\b0 This Exception occurs when the driver is performing the action after immediately quitting the browser.\par
+Example:-\par
+driver.quit();\par
+driver.findElement(By.id("username")).sendKeys("Mukesh");\par
+1\par
+2\par
+driver.quit();\par
+driver.findElement(By.id("username")).sendKeys("Mukesh");\par
+\par
+\par
+\b\f0\fs28 tell me code to pass values from parent window to child window\b0\f2\fs22\par
+var newWin = null; // global\par
+\par
+function newWindow()\par
+\{\par
+  if (!newWin || newWin.closed) \{\par
+    newWin = window.open('popup','addwin','width=500,height=250,status=yes,scrollbars=yes,resizable=yes');\par
+    waitForWin();\par
+  \}\par
+\}\par
+\par
+function waitForWin()\par
+\{\par
+  if (newWin.document && newWin.document.forms && newWin.document.forms['childWinForm']) \{\par
+    newWin.document.forms['childWinForm'].text1.value = document.forms['parentWinForm'].text1.value;\par
+  \}\par
+  else \{\par
+    setTimeout(waitForWin, 250);\par
+  \}\par
+\}\f1\par
+}
+ 

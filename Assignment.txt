@@ -1,0 +1,64 @@
+package IFsample;
+
+import java.util.Date;
+
+public class Javaconcepts { //begining of a class
+	//Properties
+	int stu_id=1001;//Hardcoding-data to the properties
+	String Stu_name;
+	float Marks1,marks2;
+	Date  joining_date;
+	boolean attendance;
+	
+	//Method with no return
+	void calculate_grade()//Method Declaration
+	{//Method definition
+		
+	}
+	
+	//Method with return type and hardcoded value
+	String get_studentname()
+	{
+		return "xyz";
+	}
+	
+	//Method with variable and return type
+	int get_grade()
+	{
+		int result=0;//variable
+		return result;
+	}
+	
+	//Method that returns property
+	Date get_joiningdate()
+	{
+		return joining_date;
+	}
+	
+	//Method with parameters and no return type
+	void calculate_grade(int marks1,double marks2)
+	{
+		
+	}
+	
+	//Method with parameters and return type
+	boolean calculate_attendance(int num_days_present)
+	{
+		return attendance;
+	}
+	
+	//Default constructor-entry point,don't call them explicitly
+	 Javaconcepts()
+	 {
+		System.out.println("I am a default constructor"); 
+	 }
+	 //Constructor with parameters
+	 Javaconcepts(int id,String sname)
+	 {
+		 
+	 }
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+

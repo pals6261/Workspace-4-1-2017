@@ -1,0 +1,67 @@
+/* INNER JOIN*/
+
+
+SELECT book.title,book.publisher,authors.first_name,authors.last_name
+
+FROM book
+
+INNER JOIN authors
+ON book.title=authors.title
+
+ORDER BY book.transaction_date;
+
+
+/*LEFT JOIN */
+
+SELECT book.title,book.publisher,authors.first_name,authors.last_name
+
+FROM book
+LEFT JOIN authors
+ON book.title=authors.title
+
+ORDER BY book.transaction_date;
+
+
+/* RIGHT JOIN*/
+
+SELECT book.title,book.publisher,authors.first_name
+
+FROM book
+right JOIN authors
+ON book.title=authors.title
+
+ORDER BY book.transaction_date;
+
+
+
+/* MAX,SUM,AVG */
+
+select max(book.total_pages),sum(book.price),avg(book.price)
+from book;
+
+
+/* group by*/
+
+select * from book 
+group by book.publication_year;
+
+
+/* Having */
+
+select * from book
+group by book.edition
+having book.total_pages>100;
+
+
+/* where condition */
+
+select * from  book
+where book.state='mint';
+
+
+/* second largest price from book */
+
+
+select * from book
+order by book.total_pages desc limit 1 offset 1;
+

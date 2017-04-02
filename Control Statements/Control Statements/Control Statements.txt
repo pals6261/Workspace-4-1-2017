@@ -1,0 +1,417 @@
+Control Statements in Java
+--------------------------
+
+	There are the three types of control statements
+
+1) Conditional Statements
+
+2) Un Conditional Statements
+
+3) Looping Statements
+
+
+
+Conditional Statements
+----------------------
+
+	The Conditional statements are divided in five types
+
+1) IF
+
+2) IF -Else
+
+3) Else IF Ladder
+
+4) Nested IF
+
+5) Switch 
+
+
+IF : 
+---
+
+
+	Using if statement we check the condition that condition is true then if block statements are execute.
+
+Syntax :
+
+	If(Condition)
+	{
+
+		// Block of statements;
+
+	}
+
+Example :
+---------
+
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		int y=2003;
+		
+		if(y%4==0)
+		{
+			System.out.println("Given year is leap year");
+		}
+		
+		
+		
+
+	}
+
+}
+
+
+
+IF - Else
+---------
+
+	If the condition is true then the if block statements are execute,suppose if the condition is false then the else block statements are execute.
+
+
+Example :
+---------
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		int y=2003;
+		
+		if(y%4==0)
+		{
+			System.out.println("Given year is leap year");
+		}
+		else
+		{
+			System.out.println("Given year is not leap year");
+		}
+		
+		
+		
+
+	}
+
+}
+
+
+
+
+Example 2
+---------
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		int n=5;
+		
+		if(n%2==1)
+		{
+			System.out.println("Given number is odd");
+		}
+		else
+		{
+			System.out.println("Given number is even");
+		}
+		
+		
+		
+
+	}
+
+}
+
+
+
+
+Else IF Ladder :
+----------------
+
+	Number of  Condition number of different statements we are maintain the else if ladder.
+
+
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		int n=3;
+		
+		if(n==0)
+		{
+			System.out.println("Given number is Zero");
+		}
+		else if(n%2==0)
+		{
+			System.out.println("Given number is even");
+		}
+		else 
+		{
+			System.out.println("Given number is odd");			
+		}
+		
+		
+		
+		
+
+	}
+
+}
+
+
+
+Nested IF Condition :
+---------------------
+
+	If the condition is true then we are checking another condition then that is know as nested if condition.
+
+Example : 
+--------
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		int n=-3;
+		
+		if(n>0 || n<0)
+		{
+			System.out.println("Given number is not zero");
+			
+			if(n>0)
+			{
+				System.out.println("Given number is +ve");
+			}
+			else
+			{
+				System.out.println("Given  number is -ve");
+				
+			}
+		}
+		else
+		{
+			System.out.println("Given number is zero");
+		}	
+		
+		
+
+	}
+
+}
+
+
+
+Switch : 
+------
+
+	You can Execute the perticular condtion statements then that process is know as switch , mostly switch we are using menu type programs.
+
+
+Example :
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		
+		int weekno=8;
+		
+		switch(weekno)
+		{
+		case 1:
+			System.out.println("Sun");
+			break;
+		case 2:
+			System.out.println("Mon");
+			break;
+		case 3:
+			System.out.println("Tues");
+			break;
+		case 4:
+			System.out.println("Wed");
+			break;
+		case 5:
+			System.out.println("Thurs");
+			break;
+		case 6:
+			System.out.println("Fri");
+			break;
+		case 7:
+			System.out.println("Sat");
+			break;
+		default:
+			System.out.println("Invalid week number");
+			break;		
+			
+		}
+
+	}
+
+}
+
+
+
+
+Un Conditional Statements
+-------------------------
+
+	The unconditional statemetns are default conditions are execute.
+
+Example : Break,Continue,Exit...etc.
+
+
+
+
+Looping Statements 
+------------------
+
+	We execute the any statements in number of times then we are using the loop statements.
+
+There are the three types of loops.
+
+1) While
+
+2) Do While
+
+3) For Loop
+
+
+
+While : In While loop first they can check the condition then after that process.if the condition is false then stop loop
+-----
+
+Do While : In Do while loop first they can process after that we check the condition.
+---------
+
+For : First its inilization after the check the condition.
+----
+
+
+We are write the looping we can maintain the three points
+
+1) Inilization point
+
+2) Condition
+
+3) Increment/Decrement
+
+
+
+Example :
+--------
+
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		int i=1;
+
+		while(i<=10)
+		{		
+			System.out.println("Welcome to saibersys");
+
+			i++;
+		}
+
+	}
+
+}
+
+
+
+
+Example 2:
+----------
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		int i=1;
+		do
+		{		
+			System.out.println("Welcome to saibersys");
+			i++;
+		}while(i<=10);
+
+	}
+
+}
+
+
+
+
+Example : 
+---------
+
+package samples;
+
+public class Example 
+{
+
+	public static void main(String[] args) 
+	{
+		for(int i=1;i<=10;i++)
+		{		
+			System.out.println("Welcome to saibersys");
+		
+		}
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

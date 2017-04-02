@@ -1,0 +1,311 @@
+1. Abstract Method
+
+abstract class Shape{  
+abstract void draw();  
+}  
+//In real scenario, implementation is provided by others i.e. unknown by end user  
+class Rectangle extends Shape{  
+void draw(){
+	System.out.println("drawing rectangle");
+	}  
+}  
+class Circle1 extends Shape{  
+void draw(){
+	System.out.println("drawing circle");
+	}  
+}  
+//In real scenario, method is called by programmer or user  
+class TestAbstraction1{  
+public static void main(String args[]){  
+Shape s=new Circle1();
+//In real scenario, object is provided through method e.g. getShape() method  
+s.draw();  
+}  
+} 
+	
+
+2. Abstract Method
+
+abstract class Bike{  
+	//abstract class
+	   Bike(){System.out.println("bike is created");}  
+	   abstract void run();  
+	   //abstract method
+	   void changeGear(){System.out.println("gear changed");}  
+	 }  
+	  
+	 class Honda extends Bike{  
+	 void run(){System.out.println("running safely..");}  
+	 }  
+	 class TestAbstraction2{  
+	 public static void main(String args[]){  
+	  Bike obj = new Honda();  
+	  obj.run();  
+	  obj.changeGear();  
+	 }  
+	}
+	
+
+3. Overriding
+
+
+public class Overriding {
+	class Bank{  
+		int getRateOfInterest(){return 0;}  
+		}  
+		  
+		class SBI extends Bank{  
+		int getRateOfInterest(){return 8;}  
+		}  
+		  
+		class ICICI extends Bank{  
+		int getRateOfInterest(){return 7;}  
+		}  
+		class AXIS extends Bank{  
+		int getRateOfInterest(){return 9;}  
+		}  
+		  
+		class Test2{  
+		public void main(String args[]){  
+		SBI s=new SBI();  
+		ICICI i=new ICICI();  
+		AXIS a=new AXIS();  
+		System.out.println("SBI Rate of Interest: "+s.getRateOfInterest());  
+		System.out.println("ICICI Rate of Interest: "+i.getRateOfInterest());  
+		System.out.println("AXIS Rate of Interest: "+a.getRateOfInterest());  
+		}  
+		} 
+}
+
+
+4. Static Method
+
+public class StaticMethod {
+	
+	static class Student{  
+	     int rollno;  
+	     String name;  
+	     static String college = "STU";  
+	       
+	     static void change(){  
+	     college = "AU";  
+	     }  
+	  
+	     Student(int r, String n){  
+	     rollno = r;  
+	     name = n;  
+	     }  
+	  
+	     void display (){System.out.println(rollno+" "+name+" "+college);}  
+	  
+	    public static void main(String args[]){  
+	    Student.change();  
+	  
+	    Student s1 = new Student (001,"Ramya");  
+	    Student s2 = new Student (002,"Kavu");  
+	    Student s3 = new Student (003,"Tavi");  
+	  
+	    s1.display();  
+	    s2.display();  
+	    s3.display();  
+	    }  
+	}
+
+}
+
+5. Static Method
+
+public class StaticMethod1 {
+	static class Calculate{  
+		  static int square(int x){  
+		  return x*x;  
+		  }  
+		  
+		  public static void main(String args[]){  
+		  int result=Calculate.square(15);  
+		  System.out.println(result);  
+		  }  
+		}  
+}
+
+6. Interface
+
+public class Interface {
+	
+		   public void method1()
+		   
+		{
+		System.out.println("implementation of method1");
+		}
+		 public void method2()
+		{
+		System.out.println("implementation of method2");
+		}
+	public static void main(String[] args) {
+		{
+			  Interface obj=new Interface();
+			obj.method1();
+			obj.method2();
+			}
+			}
+
+public interface MyInterface {
+
+			
+			public abstract void method1();
+			public abstract void method2();
+			
+	}
+
+
+7. Abstract Method
+
+abstract class human {
+
+	abstract void walk();
+}
+
+class people extends human{
+	void walk(){
+		System.out.println("humans walk");
+	}
+
+	public static void main(String[] args) {
+human obj = new people();
+obj.walk();
+	}
+
+}
+
+8. Handling Exception using try catch block.
+
+package com.inheritance;
+
+private class Error {
+public static void main(String[] args) {
+	System.out.println("inside main");
+	int a[] = new int[3];
+        a[0] = 5; 
+        a[1]= 10;
+        a[2] = 14
+       
+	// Handling the exception using try block
+	try{
+	a[5]= 55;
+	int b =5/0;
+
+	}
+	catch (Exception e)     
+        System.out.println("inside catch block");   
+	}
+	
+	
+	System.out.println("inside main method" + a[1]);
+}
+}
+
+9. Inheritance Concept
+
+package com.inheritance;
+
+class Inheritance {
+	
+	public void previousBillingSystem() {
+		System.out.println("inside previousbillingsystme");
+	}
+
+	public void payCurrentBill() {
+		System.out.println("inside paycurrentbill");
+	}
+}
+
+class Child extends Inheritance {
+	public void mobileBillingSystem() {
+		System.out.println("inside mobilebilling system");
+	}
+
+}
+
+
+class B {
+	public static void main(String[] args) {
+		Child ch = new Child();
+		ch.payCurrentBill();
+		ch.previousBillingSystem();
+		ch.mobileBillingSystem();
+	}
+
+}
+
+
+10. Override
+
+package com.practice;
+
+class InterfaceDemo{
+	public static void main(String[] args) {
+		Car obj = new Car();
+		obj.accelerator();
+		obj.gear();
+	}
+}
+
+interface Veihcle {
+	// abstract methods   (in interface the methods are by default abstract)
+	public void gear();
+
+	public void accelerator();
+
+}
+class Car implements Veihcle{
+
+	@Override       (here we are implementing veihcle interface methods and overriding them)
+	public void gear() {
+		System.out.println("chagne the gear");
+		
+		
+	}
+
+	@Override
+	public void accelerator() {
+		System.out.println("increase the speed ");
+		
+		
+	}
+	
+}
+
+11. Method Overloading
+
+package com.inheritance;
+
+public class Simple {
+
+	public void add(int a, int b) {
+
+		int c = a + b;
+		System.out.println("addition of two numbers is" + c);
+
+	}
+
+	public boolean add(int b, String a) {
+
+		System.out.println(a);
+		return true;
+		
+
+	}
+
+	public void add(String a, String b, String c) {
+
+		System.out.println(a + b + c);
+	}
+
+	public static void main(String[] args) {
+		Simple s = new Simple();
+		s.add(10, 5);
+		s.add(1, "ramya");
+		s.add("xyz", "cnc", "svs");
+	}
+
+}

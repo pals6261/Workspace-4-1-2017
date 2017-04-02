@@ -1,0 +1,273 @@
+Functions in java
+-----------------
+
+	A Function is a self contained block of statements.That are write once but execute number of times.
+
+Generally functions are two types
+
+1) Pre Defined Function
+
+2) User Defined Function
+
+
+
+Pre Defined Function
+--------------------
+
+	The pre defined functions are in built function.already there are in built in our java jar files.
+
+Example : Println(),sleep(),...etc.
+
+
+User Defined Function
+---------------------
+
+	User Write the or build the own block statement process in single name that name is know as user defined function.
+
+We are write user defined function must should maintain the three points
+
+1) Declare Function
+
+2) Build Function
+
+3) Call Function 
+
+
+How to Declare Functions
+------------------------
+
+	There are four categories we are declare the functions
+
+1) No Arguments and No Return  
+
+2) No Arguments and With Return
+
+3) With Arguments and No Return
+
+4) With Arguments and With Return 
+
+
+	Every function containg the three process
+
+a) Input - Arguments values
+
+b) Process 
+
+c) Output - return 
+
+
+
+1) No Arguments and No Return 
+------------------------------
+
+	This function categorie we can maintain the input in function body after process the output we can't return.
+
+Syntax: void Sum()
+
+
+Example :
+---------
+
+package samplePack;
+
+public class Model1 
+{
+	// No Argument and no Return
+	
+	void Sum()
+	{
+		// inputs
+		int a=100;
+		int b=200;
+		
+		// process
+		int c=a+b;
+		
+		// output
+		System.out.println(" Addition value : "+c);
+		
+		
+	}
+
+	public static void main(String[] args) 
+	{
+		Model1 obj=new Model1();		
+		obj.Sum();
+		obj.Sum();
+		obj.Sum();
+		
+
+	}
+
+}
+
+
+
+
+2) No Argument and With Return 
+   ---------------------------
+
+	This type of function categorie we are return the output from function building to function calling.we can't access any outside of the values.
+
+
+Syntax: int Sum()
+
+
+Example :
+---------
+
+
+package samplePack;
+
+public class Model1 
+{
+	// No Argument and with Return
+	
+	int Sum()
+	{
+		// inputs
+		int a=100;
+		int b=200;
+		
+		// process
+		int c=a+b;
+		
+		// return output
+		return c;
+				
+	}
+
+	public static void main(String[] args) 
+	{
+		Model1 obj=new Model1();		
+		
+		int r=obj.Sum(); // function calling
+		System.out.println("Addition value : "+r);
+		
+		System.out.println("Addition value : "+obj.Sum());
+		
+		System.out.println("Addition value : "+(obj.Sum()+obj.Sum()));
+		
+		
+
+	}
+
+}
+
+
+
+
+
+3) With Argument and No return Categorie
+   -------------------------------------
+
+
+	This type function categorie we are access the input value from function calling to function build and heare we can't return any output to from function build into function calling.
+
+
+Syntax : void Sum(int a,int b)
+
+
+
+Example :
+---------
+
+
+package samplePack;
+
+public class Model1 
+{
+	// With Argument and No Return
+	
+	void Sum(int a,int b)
+	{
+				
+		// process
+		int c=a+b;
+		
+		// return output
+		System.out.println("Addtion value : "+c);
+						
+	}
+
+	public static void main(String[] args) 
+	{
+		Model1 obj=new Model1();		
+		
+		obj.Sum(1000,2000); // function calling
+		
+		obj.Sum(500, 600);		
+
+	}
+
+}
+
+
+
+
+4) With Arguements and With return 
+   --------------------------------
+
+	This type of function categorie containg they can access inputs from function calling to function building and again we are return the output from function building to function calling.
+
+
+Syntax : int sum(int a,int b), string myname(double b)..etc;
+
+
+Example :
+--------
+
+
+package samplePack;
+
+public class Model1 
+{
+	// With Argument and with Return
+	
+	int Sum(int a,int b)
+	{
+				
+		// process
+		int c=a+b;
+		
+		// return output
+	    return c;	
+		
+						
+	}
+
+	public static void main(String[] args) 
+	{
+		Model1 obj=new Model1();		
+		
+		int r =obj.Sum(1000,2000); // function calling
+		System.out.println("Addition value : "+r);
+		
+		int d=obj.Sum(500, 600)+obj.Sum(6000, 5000);
+		System.out.println("Addition value : "+d);
+		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
